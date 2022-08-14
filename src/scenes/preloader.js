@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 
 import phaserLogo from '../../assets/logo.png'
+import sprites from '../../assets/sprites/colored_tilemap.png'
 
 export default class PreloaderScene extends Phaser.Scene {
   constructor() {
@@ -31,7 +32,7 @@ export default class PreloaderScene extends Phaser.Scene {
       y: height / 2 - 50,
       text: '',
       style: {
-        font: '18px arcade',
+        font: '2px arcade',
         fill: '#ffffff',
       },
     })
@@ -42,7 +43,7 @@ export default class PreloaderScene extends Phaser.Scene {
       y: height / 2,
       text: '0%',
       style: {
-        font: '18px arcade',
+        font: '2px arcade',
         fill: '#ffffff',
       },
     })
@@ -67,6 +68,10 @@ export default class PreloaderScene extends Phaser.Scene {
     })
 
     this.load.image('logo', phaserLogo)
+    this.load.spritesheet('sprites', sprites, {
+      frameWidth: 8,
+      frameHeight: 8
+    })
   }
 
   create() {

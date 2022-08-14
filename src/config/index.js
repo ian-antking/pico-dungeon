@@ -5,7 +5,7 @@ import 'phaser'
 export default {
   type: AUTO,
   parent: 'phaser-example',
-  width: 600,
-  height: 300,
+  width: 252,
+  height: 126,
   pixelArt: true
 }

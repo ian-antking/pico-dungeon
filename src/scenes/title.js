@@ -23,7 +23,7 @@ export default class TitleScene extends Phaser.Scene {
       y: height / 2 + height * 0.2,
       text: '[space]',
       style: {
-        font: '20px arcade',
+        font: '10px arcade',
         fill: '#ffffff',
       },
     })

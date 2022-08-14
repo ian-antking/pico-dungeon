@@ -6,17 +6,28 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create() {
-    const width = this.cameras.main.width
-    const height = this.cameras.main.height
-    const titleText = this.make.text({
-      x: width / 2,
-      y: height / 2,
-      text: 'TODO: Make Game',
-      style: {
-        font: '22px arcade',
-        fill: '#ffffff',
-      },
-    })
-    titleText.setOrigin(0.5, 0.5)
+    const tileSize = 8
+
+    const dungeon = [
+      [0, 1, 1, 1, 1, 3],
+      [16, 17, 17, 17, 17, 19],
+      [16, 17, 17, 17, 17, 19],
+      [16, 17, 17, 17, 17, 19],
+      [16, 17, 17, 17, 17, 19],
+      [32, 1, 1, 1, 1, 35],
+    ]
+
+    const config = {
+      data: dungeon,
+      tileWidth: tileSize,
+      tileHeight: tileSize
+    }
+  
+
+    const map = this.make.tilemap(config)
+
+    const tileset = map.addTilesetImage('tiles', 'sprites', tileSize, tileSize, 0, 1)
+
+    map.createStaticLayer(0, tileset, 0, 0)
   }
 }
