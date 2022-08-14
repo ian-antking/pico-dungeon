@@ -22,6 +22,7 @@ export default class TurnManager {
         this.dungeon.update(entity)
         break
       }
+      this.entities.forEach(entity => entity.refreshActions())
     }
   }
 
@@ -32,7 +33,6 @@ export default class TurnManager {
       this.turn()
 
       this.lastCall = Date.now()
-      this.entities.forEach(entity => entity.refreshActions())
     }
   }
 }
