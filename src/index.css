@@ -1,3 +1,10 @@
+@font-face {
+  font-family:arcade;
+  src: url('../assets/fonts/arcade_ya/ARCADE_N.TTF');
+  font-weight: 400;
+  font-weight: normal;
+}
+
 body {
   background-color: black;
   display: flex;

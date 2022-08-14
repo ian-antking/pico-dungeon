@@ -13,7 +13,7 @@ export default class GameScene extends Phaser.Scene {
       y: height / 2,
       text: 'TODO: Make Game',
       style: {
-        font: '22px monospace',
+        font: '22px arcade',
         fill: '#ffffff',
       },
     })
