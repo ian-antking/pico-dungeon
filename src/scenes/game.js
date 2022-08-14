@@ -1,33 +1,24 @@
 import Phaser from 'phaser'
 
+import Dungeon from '../modules/dungeon'
+import Player from '../modules/player'
+import TurnManager from '../modules/turnManager'
+
 export default class GameScene extends Phaser.Scene {
   constructor() {
     super('Game')
   }
 
   create() {
-    const tileSize = 8
+    const dungeon = new Dungeon(this)
+    const player = new Player(2, 2, this.input.keyboard.createCursorKeys())
 
-    const dungeon = [
-      [0, 1, 1, 1, 1, 3],
-      [16, 17, 17, 17, 17, 19],
-      [16, 17, 17, 17, 17, 19],
-      [16, 17, 17, 17, 17, 19],
-      [16, 17, 17, 17, 17, 19],
-      [32, 1, 1, 1, 1, 35],
-    ]
+    this.turnManager = new TurnManager(dungeon)
 
-    const config = {
-      data: dungeon,
-      tileWidth: tileSize,
-      tileHeight: tileSize
-    }
-  
+    this.turnManager.addEntity(player)
+  }
 
-    const map = this.make.tilemap(config)
-
-    const tileset = map.addTilesetImage('tiles', 'sprites', tileSize, tileSize, 0, 1)
-
-    map.createStaticLayer(0, tileset, 0, 0)
+  update() {
+    this.turnManager.update()
   }
 }
