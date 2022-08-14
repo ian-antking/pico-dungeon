@@ -6,13 +6,12 @@ export default class TitleScene extends Phaser.Scene {
   }
 
   create() {
-    const canvas = document.querySelector('canvas')
     const width = this.cameras.main.width
     const height = this.cameras.main.height
 
     const logo = this.add.image(
-      canvas.width / 2,
-      canvas.height / 2 - 50,
+      width / 2,
+      height / 2 - (height * 0.1),
       'logo'
     )
 
@@ -22,7 +21,7 @@ export default class TitleScene extends Phaser.Scene {
     const titleText = this.make.text({
       x: width / 2,
       y: height / 2 + height * 0.2,
-      text: 'Press Spacebar',
+      text: '[space]',
       style: {
         font: '20px arcade',
         fill: '#ffffff',
