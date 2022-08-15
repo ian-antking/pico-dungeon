@@ -1,55 +1,64 @@
-export default class Player {
-  constructor(x, y, cursors) {
+import { GameObjects } from 'phaser'
+
+export default class Player extends GameObjects.Sprite {
+  constructor({ scene, x, y, }) {
+    super(scene, x, y, 'player')
+    this.health = 10
     this.actionPoints = 1
     this.maxActions = 1
-    this.cursors = cursors
+    this.cursors = this.scene.input.keyboard.createCursorKeys()
+    this.moving = false
 
-    this.x = x
-    this.y = y
+    this.destination = { x, y }
+    this.location = { x, y }
 
-    this.destination = {
-      x: x,
-      y: y
-    }
-
-    this.sprite = 4
+    this.tile = 4
   }
 
   get over() {
     return this.actionPoints == 0
   }
 
-  confirmMove() {
-    this.x = this.destination.x
-    this.y = this.destination.y
-    this.useAction()
-  }
-
-  rejectMove() {
-    this.destination = {
-      x: this.x,
-      y: this.y
-    }
-  }
-
   update() {
-    if (!this.over) {
+    if (!this.over && !this.moving) {
       if (this.cursors.left.isDown) {
         this.destination.x -=1
+        return true
       } 
 
       if (this.cursors.right.isDown) {
         this.destination.x +=1
+        return true
       } 
 
       if (this.cursors.up.isDown) {
         this.destination.y -=1
+        return true
       }
 
       if (this.cursors.down.isDown) {
         this.destination.y +=1
+        return true
       }
+
+      return false
     }
+  }
+
+  startMove() {
+    this.moving = true
+  }
+
+  endMove() {
+    this.moving = false
+  }
+
+  confirmMove() {
+    this.location = { x: this.destination.x, y: this.destination.y }
+  }
+
+  rejectMove() {
+    this.destination = { x: this.location.x, y: this.location.y }
   }
 
   useAction() {

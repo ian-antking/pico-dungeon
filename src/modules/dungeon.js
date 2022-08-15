@@ -25,35 +25,56 @@ export default class Dungeon {
 
     this.map = this.scene.make.tilemap(config)
 
-    const tileset = this.map.addTilesetImage('tiles', 'sprites', tileSize, tileSize, 0, 1)
+    const tileset = this.map.addTilesetImage('tiles', 'tiles', tileSize, tileSize, 0, 1)
 
     this.map.createLayer(0, tileset, 0, 0)
   }
 
-  validateMove(entity) {
-    const { index } = this.map.getTileAt(entity.destination.x, entity.destination.y)
-    if (index === 17) {
-      entity.confirmMove()
-      return true
-    } else {
-      entity.rejectMove()
-      return false
+  initialiseEntity(entity) {
+    const { x, y } = this.mapTileToWorldXY(entity.x, entity.y)
+    entity.sprite = this.scene.add.sprite(x, y, 'tiles', 4)
+    entity.sprite.setOrigin(0)
+  }
+
+  mapTileToWorldXY(x, y) {
+    return {
+      x: this.map.tileToWorldX(x),
+      y: this.map.tileToWorldY(y)
     }
   }
 
-  place(entity) {
-    this.map.putTileAt(entity.sprite, entity.x, entity.y)
+  validateMove({ destination }) {
+    const tile = this.map.getTileAt(destination.x, destination.y)
+
+    return tile?.index === 17
   }
 
-  clear(x, y) {
-    this.map.putTileAt(17, x, y)
+  move(entity) {
+    entity.startMove()
+    const { x, y } = this.mapTileToWorldXY(entity.destination.x, entity.destination.y)
+    this.scene.tweens.add({
+      targets: entity.sprite,
+      onComplete: () => {
+        entity.confirmMove()
+        entity.x = x
+        entity.y = y
+        entity.moving = false
+        entity.endMove()
+      },
+      x,
+      y,
+      ease: 'Power2',
+      duration: 200
+    })
   }
 
   update(entity) {
-    const originalLocation = { x: entity.x, y: entity.y }
     if (this.validateMove(entity)) {
-      this.place(entity)
-      this.clear(originalLocation.x, originalLocation.y)
-    }
+      this.move(entity)
+      return true
+    } 
+
+    entity.rejectMove()
+    return false
   }
 }
