@@ -1,16 +1,10 @@
-export default class Player {
-  constructor({ scene, x, y, }) {
-    this.scene = scene
-    this.health = 10
-    this.actionPoints = 1
-    this.maxActions = 1
+import Entity from './entity'
+
+export default class Player extends Entity {
+  constructor(config) {
+    super(config)
+    
     this.cursors = this.scene.input.keyboard.createCursorKeys()
-    this.moving = false
-
-    this.destination = { x, y }
-    this.location = { x, y }
-
-    this.tile = 4
   }
 
   get over() {

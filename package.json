@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel src/index.html -p 8000",
-		"build": "parcel build src/index.html --out-dir dist",
+    "build": "parcel build src/index.html --out-dir dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "pathfinder": "^0.3.0-1",
     "phaser": "^3.55.2"
   },
   "devDependencies": {
