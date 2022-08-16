@@ -11,8 +11,8 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create() {
-    const dungeon = new Dungeon(this)
-    const player = new Player({
+    this.dungeon = new Dungeon(this)
+    this.player = new Player({
       scene: this,
       x: 2, 
       y: 2, 
@@ -32,13 +32,13 @@ export default class GameScene extends Phaser.Scene {
       }
     )
 
-    this.turnManager = new TurnManager(dungeon)
+    this.turnManager = new TurnManager(this.dungeon)
 
-    this.turnManager.addEntity(player)
+    this.turnManager.addEntity(this.player)
     this.turnManager.addEntity(slime)
 
-    dungeon.initialiseEntity(player)
-    dungeon.initialiseEntity(slime)
+    this.dungeon.initialiseEntity(this.player)
+    this.dungeon.initialiseEntity(slime)
   }
 
   update() {

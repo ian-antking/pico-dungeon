@@ -4,7 +4,7 @@ export default class Dungeon {
 
     const tileSize = 8
 
-    const dungeon = [
+    const data = [
       [144, 145, 145, 145, 145, 147],
       [148, 17, 17, 17, 17, 148],
       [148, 17, 17, 17, 17, 148],
@@ -17,8 +17,10 @@ export default class Dungeon {
       [150, 145, 145, 145, 145, 153],
     ]
 
+    this.dungeon = data.map(row => row.map(tile => tile === 17 ? 0:1))
+
     const config = {
-      data: dungeon,
+      data,
       tileWidth: tileSize,
       tileHeight: tileSize
     }
