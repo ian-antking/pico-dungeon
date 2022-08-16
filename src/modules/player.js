@@ -1,8 +1,6 @@
-import { GameObjects } from 'phaser'
-
-export default class Player extends GameObjects.Sprite {
+export default class Player {
   constructor({ scene, x, y, }) {
-    super(scene, x, y, 'player')
+    this.scene = scene
     this.health = 10
     this.actionPoints = 1
     this.maxActions = 1

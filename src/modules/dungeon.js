@@ -5,16 +5,16 @@ export default class Dungeon {
     const tileSize = 8
 
     const dungeon = [
-      [0, 1, 1, 1, 1, 3],
-      [16, 17, 17, 17, 17, 19],
-      [16, 17, 17, 17, 17, 19],
-      [16, 17, 17, 17, 17, 19],
-      [16, 17, 17, 17, 17, 19],
-      [16, 17, 17, 17, 17, 19],
-      [16, 17, 17, 17, 17, 19],
-      [16, 17, 17, 17, 17, 19],
-      [16, 17, 17, 17, 17, 19],
-      [32, 1, 1, 1, 1, 35],
+      [144, 145, 145, 145, 145, 147],
+      [148, 17, 17, 17, 17, 148],
+      [148, 17, 17, 17, 17, 148],
+      [148, 17, 17, 17, 17, 148],
+      [148, 17, 17, 17, 17, 148],
+      [148, 17, 17, 17, 17, 148],
+      [148, 17, 17, 17, 17, 148],
+      [148, 17, 17, 17, 17, 148],
+      [148, 17, 17, 17, 17, 148],
+      [150, 145, 145, 145, 145, 153],
     ]
 
     const config = {
@@ -32,8 +32,9 @@ export default class Dungeon {
 
   initialiseEntity(entity) {
     const { x, y } = this.mapTileToWorldXY(entity.x, entity.y)
-    entity.sprite = this.scene.add.sprite(x, y, 'tiles', 4)
+    entity.sprite = this.scene.add.sprite(x, y, 'tiles', entity.tile)
     entity.sprite.setOrigin(0)
+    this.move(entity)
   }
 
   mapTileToWorldXY(x, y) {

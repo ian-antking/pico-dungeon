@@ -70,7 +70,8 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('logo', phaserLogo)
     this.load.spritesheet('tiles', sprites, {
       frameWidth: 8,
-      frameHeight: 8
+      frameHeight: 8,
+      spacing: 1
     })
   }
 
