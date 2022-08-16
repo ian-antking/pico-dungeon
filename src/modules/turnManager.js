@@ -25,9 +25,10 @@ export default class TurnManager {
       this.currentTurn += 1
     }
 
-    const remainingActions = entities.reduce((previous, current) => { return previous + current.actionPoints}, 0)
-    if (!remainingActions) {
-      entities.forEach(entity => entity.refreshActions())
+    const remainingMoves = entities.reduce((previous, current) => { return previous + current.movementPoints}, 0)
+    if (!remainingMoves) {
+      console.log('refresh')
+      entities.forEach(entity => entity.refresh())
     }
   }
 }

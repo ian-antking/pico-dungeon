@@ -1,9 +1,9 @@
 export default class Entity {
-  constructor({ scene, x, y, tile, health, actions }) {
+  constructor({ scene, x, y, tile, health, speed }) {
     this.scene = scene
     this.health = health
-    this.actionPoints = actions
-    this.maxActions = actions
+    this.movementPoints = speed
+    this.speed = speed
     this.moving = false
 
     this.destination = { x, y }
@@ -14,30 +14,28 @@ export default class Entity {
 
 
   get over() {
-    return this.actionPoints == 0
+    return this.movementPoints == 0
+  }
+
+  get idle() {
+    return !this.over && !this.moving
   }
 
   startMove() {
     this.moving = true
   }
 
-  endMove() {
-    this.moving = false
-  }
-
-  confirmMove() {
-    this.location = { x: this.destination.x, y: this.destination.y }
-  }
-
   rejectMove() {
     this.destination = { x: this.location.x, y: this.location.y }
   }
 
-  useAction() {
-    this.actionPoints - 1 > 0 ? this.actionPoints -= 1 : this.actionPoints = 0
+  move() {
+    this.location = { x: this.destination.x, y: this.destination.y }
+    this.movementPoints - 1 > 0 ? this.movementPoints -= 1 : this.movementPoints = 0
+    this.moving = false
   }
 
-  refreshActions() {
-    this.actionPoints = this.maxActions
+  refresh() {
+    this.movementPoints = this.speed
   }
 }

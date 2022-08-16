@@ -8,11 +8,11 @@ export default class Player extends Entity {
   }
 
   get over() {
-    return this.actionPoints == 0
+    return this.movementPoints == 0
   }
 
   update() {
-    if (!this.over && !this.moving) {
+    if (this.idle) {
       if (this.cursors.left.isDown) {
         this.destination.x -=1
         return true
@@ -35,29 +35,5 @@ export default class Player extends Entity {
 
       return false
     }
-  }
-
-  startMove() {
-    this.moving = true
-  }
-
-  endMove() {
-    this.moving = false
-  }
-
-  confirmMove() {
-    this.location = { x: this.destination.x, y: this.destination.y }
-  }
-
-  rejectMove() {
-    this.destination = { x: this.location.x, y: this.location.y }
-  }
-
-  useAction() {
-    this.actionPoints - 1 > 0 ? this.actionPoints -= 1 : this.actionPoints = 0
-  }
-
-  refreshActions() {
-    this.actionPoints = this.maxActions
   }
 }

@@ -58,11 +58,10 @@ export default class Dungeon {
     this.scene.tweens.add({
       targets: entity.sprite,
       onComplete: () => {
-        entity.confirmMove()
+        entity.move()
         entity.x = x
         entity.y = y
         entity.moving = false
-        entity.endMove()
       },
       x,
       y,

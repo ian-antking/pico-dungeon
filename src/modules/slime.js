@@ -8,8 +8,7 @@ export default class Slime extends Entity {
   }
 
   update() {
-    console.log(this.over)
-    if (!this.over) {
+    if (this.idle) {
       const { x, y } = this.location
       const { player, dungeon } = this.scene
       const pX = player.location.x
