@@ -3,7 +3,7 @@ export default class TurnManager {
     this.entities = new Set()
     this.dungeon = dungeon
 
-    this. currentTurn = 0
+    this.currentTurn = 0
   }
 
   addEntity(entity) {
