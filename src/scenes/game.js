@@ -17,7 +17,7 @@ export default class GameScene extends Phaser.Scene {
       x: 2, 
       y: 2, 
       health: 10,
-      speed: 1,
+      speed: 2,
       tile: 4
     })
 

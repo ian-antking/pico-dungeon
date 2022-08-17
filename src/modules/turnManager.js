@@ -1,8 +1,6 @@
 export default class TurnManager {
   constructor(dungeon) {
     this.entities = new Set()
-    this.lastCall = Date.now()
-    this.interval = 150
     this.dungeon = dungeon
 
     this. currentTurn = 0
@@ -21,13 +19,15 @@ export default class TurnManager {
     
     const entity = entities[this.currentTurn % entities.length]
 
-    if (entity.update() && this.dungeon.update(entity)) {
+    entity.update() && this.dungeon.update(entity)
+
+    if (entity.movementPoints === 0) {
       this.currentTurn += 1
     }
 
     const remainingMoves = entities.reduce((previous, current) => { return previous + current.movementPoints}, 0)
+
     if (!remainingMoves) {
-      console.log('refresh')
       entities.forEach(entity => entity.refresh())
     }
   }

@@ -33,10 +33,10 @@ export default class Dungeon {
   }
 
   initialiseEntity(entity) {
-    const { x, y } = this.mapTileToWorldXY(entity.x, entity.y)
+    const { x, y } = this.mapTileToWorldXY(entity.location.x, entity.location.y)
     entity.sprite = this.scene.add.sprite(x, y, 'tiles', entity.tile)
     entity.sprite.setOrigin(0)
-    this.move(entity)
+    entity.sprite.setPosition(x, y)
   }
 
   mapTileToWorldXY(x, y) {
@@ -59,9 +59,6 @@ export default class Dungeon {
       targets: entity.sprite,
       onComplete: () => {
         entity.move()
-        entity.x = x
-        entity.y = y
-        entity.moving = false
       },
       x,
       y,

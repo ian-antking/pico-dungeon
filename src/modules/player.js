@@ -7,10 +7,6 @@ export default class Player extends Entity {
     this.cursors = this.scene.input.keyboard.createCursorKeys()
   }
 
-  get over() {
-    return this.movementPoints == 0
-  }
-
   update() {
     if (this.idle) {
       if (this.cursors.left.isDown) {
