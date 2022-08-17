@@ -17,7 +17,7 @@ export default class Slime extends Entity {
       const pY = player.location.y
 
       const grid = new Grid(dungeon.dungeon)
-      const finder = new AStarFinder()
+      const finder = new AStarFinder({ allowDiagonal: true })
 
       const path = finder.findPath(x, y, pX, pY, grid)
 
