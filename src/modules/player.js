@@ -3,8 +3,23 @@ import Entity from './entity'
 export default class Player extends Entity {
   constructor(config) {
     super(config)
+
+    this.actions = config.actions
+    this.actionPoints = config.actions
     
     this.cursors = this.scene.input.keyboard.createCursorKeys()
+  }
+
+  get canAttack() {
+    return this.actionPoints > 0
+  }
+
+  get over() {
+    return this.movementPoints === 0 && !this.canAttack
+  }
+
+  spendAction() {
+    this.actionPoints - 1 > 0 ? this.actionPoints -= 1 : this.actionPoints = 0
   }
 
   update() {

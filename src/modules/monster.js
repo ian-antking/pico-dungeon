@@ -5,8 +5,14 @@ import Entity from './entity'
 export default class Slime extends Entity {
   constructor(config) {
     super(config)
+  }
 
-    this.name = 'Slime'
+  get canAttack() {
+    return this.movementPoints > 0
+  }
+
+  get over() {
+    return this.movementPoints == 0
   }
 
   update() {

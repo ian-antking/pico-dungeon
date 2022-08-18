@@ -1,10 +1,12 @@
 export default class Entity {
-  constructor({ scene, x, y, tile, health, speed }) {
+  constructor({ name, scene, x, y, tile, health, speed, range }) {
+    this.name = name
     this.scene = scene
     this.health = health
     this.movementPoints = speed
     this.speed = speed
     this.moving = false
+    this.range = range
 
     this.destination = { x, y }
     this.location = { x, y }
@@ -12,13 +14,32 @@ export default class Entity {
     this.tile = tile
   }
 
+  get alive() {
+    return this.health > 0
+  }
 
   get over() {
-    return this.movementPoints == 0
+    return this.movementPoints === 0
   }
 
   get idle() {
     return !this.over && !this.moving
+  }
+
+  attack() {
+    return 1
+  }
+
+  takeDamage(damage) {
+    this.health -= damage
+  }
+
+  spendAction() {
+    this.spendMovement()
+  }
+
+  spendMovement() {
+    this.movementPoints - 1 > 0 ? this.movementPoints = 0 : this.movementPoints -= 1
   }
 
   startMove() {
@@ -31,11 +52,12 @@ export default class Entity {
 
   move() {
     this.location = { x: this.destination.x, y: this.destination.y }
-    this.movementPoints - 1 > 0 ? this.movementPoints -= 1 : this.movementPoints = 0
+    this.spendMovement()
     this.moving = false
   }
 
   refresh() {
     this.movementPoints = this.speed
+    this.actionPoints = this.actions
   }
 }

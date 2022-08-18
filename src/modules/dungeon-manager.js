@@ -1,3 +1,5 @@
+import { Grid, AStarFinder } from 'pathfinding'
+
 export default class Dungeon {
   constructor(scene) {
     this.scene = scene
@@ -46,10 +48,38 @@ export default class Dungeon {
     }
   }
 
-  validateMove({ destination }) {
+  validateMove({ destination }, entities) {
     const tile = this.map.getTileAt(destination.x, destination.y)
 
-    return tile?.index === 17
+    let legal = tile.index === 17
+
+    entities.forEach(entity => {
+      if (entity.location.x === destination.x && entity.location.y === destination.y) {
+        legal = false
+      }
+    })
+
+    return legal
+  }
+
+  entitiesInRange(entity, entities) {
+    return entities.filter(e => {
+      if ( entity === e ) {
+        return false
+      }
+
+      const grid = new Grid(this.dungeon)
+      const finder = new AStarFinder({ allowDiagonal: true })
+
+      const path = finder.findPath(entity.location.x, entity.location.y, e.location.x, e.location.y, grid)
+
+      if (path.length <= entity.range) {
+        return true
+      }
+
+      return false
+      
+    })
   }
 
   move(entity) {
@@ -67,8 +97,8 @@ export default class Dungeon {
     })
   }
 
-  update(entity) {
-    if (this.validateMove(entity)) {
+  update(entity, entities) {
+    if (this.validateMove(entity, entities)) {
       this.move(entity)
       return true
     } 

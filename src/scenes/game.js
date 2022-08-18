@@ -1,8 +1,8 @@
 import Phaser from 'phaser'
 
-import Dungeon from '../modules/dungeon'
+import DungeonManager from '../modules/dungeon-manager'
 import Player from '../modules/player'
-import Slime from '../modules/slime'
+import Monster from '../modules/monster'
 import TurnManager from '../modules/turnManager'
 
 export default class GameScene extends Phaser.Scene {
@@ -11,24 +11,29 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create() {
-    this.dungeon = new Dungeon(this)
+    this.dungeon = new DungeonManager(this)
     this.player = new Player({
       scene: this,
       x: 2, 
       y: 2, 
       health: 10,
-      speed: 2,
-      tile: 4
+      speed: 1,
+      tile: 4,
+      actions: 1,
+      name: 'Hero',
+      range: 2
     })
 
-    const slime = new Slime(
+    const slime = new Monster(
       {
         scene: this,
         x: 4, 
         y: 4, 
         health: 10,
         speed: 1,
-        tile: 24
+        tile: 24,
+        name: 'Slime',
+        range: 2
       }
     )
 
@@ -36,9 +41,6 @@ export default class GameScene extends Phaser.Scene {
 
     this.turnManager.addEntity(this.player)
     this.turnManager.addEntity(slime)
-
-    this.dungeon.initialiseEntity(this.player)
-    this.dungeon.initialiseEntity(slime)
   }
 
   update() {
