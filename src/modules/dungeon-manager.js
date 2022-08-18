@@ -82,6 +82,39 @@ export default class Dungeon {
     })
   }
 
+  attack(attacker, defender) {
+    attacker.startMove()
+    attacker.tweens = attacker.tweens || 0
+    attacker.tweens += 1
+    const { x, y } = this.mapTileToWorldXY(defender.location.x, defender.location.y)
+
+    this.scene.tweens.add({
+      targets: attacker.sprite,
+      onComplete: () => {
+        attacker.endMove()
+        attacker.tweens -= 1
+
+        const damage = attacker.attack()
+        defender.takeDamage(damage)
+        attacker.spendAction()
+
+        console.log(`${attacker.name} attacked ${defender.name} and dealt ${damage} damage`)
+
+        if ( !defender.alive ) {
+          defender.sprite.destroy()
+          console.log(`${defender.name} is defeated`)
+        }
+      },
+      x,
+      y,
+      ease: 'Poser2',
+      hold: 20,
+      duration: 80,
+      delay: attacker.tweens * 200,
+      yoyo: true      
+    })
+  }
+
   move(entity) {
     entity.startMove()
     const { x, y } = this.mapTileToWorldXY(entity.destination.x, entity.destination.y)

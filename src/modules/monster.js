@@ -8,7 +8,7 @@ export default class Slime extends Entity {
   }
 
   get canAttack() {
-    return this.movementPoints > 0
+    return this.movementPoints > 0 && !this.moving
   }
 
   get over() {

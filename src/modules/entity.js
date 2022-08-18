@@ -19,7 +19,7 @@ export default class Entity {
   }
 
   get over() {
-    return this.movementPoints === 0
+    return this.movementPoints === 0 && !this.moving
   }
 
   get idle() {
@@ -53,6 +53,10 @@ export default class Entity {
   move() {
     this.location = { x: this.destination.x, y: this.destination.y }
     this.spendMovement()
+    this.endMove()
+  }
+
+  endMove() {
     this.moving = false
   }
 

@@ -15,20 +15,6 @@ export default class TurnManager {
     this.entities.delete(entity)
   }
 
-  resolveAttack(attacker, defender) {
-    const damage = attacker.attack()
-    defender.takeDamage(damage)
-    attacker.spendAction()
-
-    console.log(`${attacker.name} attacked ${defender.name} and dealt ${damage} damage`)
-
-    if ( !defender.alive ) {
-      defender.sprite.destroy()
-      this.removeEntity(defender)
-      console.log(`${defender.name} is defeated`)
-    }
-  }
-
   update() {
     const entities = [...this.entities]
     
@@ -40,11 +26,11 @@ export default class TurnManager {
       const targets = this.dungeon.entitiesInRange(entity, entities)
 
       if (targets.length > 0) {
-        this.resolveAttack(entity, targets[0])
+        this.dungeon.attack(entity, targets[0])
       }
     }
 
-    if (entity.movementPoints === 0 && !entity.canAttack) {
+    if (entity.movementPoints === 0) {
       this.currentTurn += 1
     }
 
@@ -53,5 +39,7 @@ export default class TurnManager {
     if (!remainingMoves) {
       entities.forEach(entity => entity.refresh())
     }
+
+    entities.forEach(e => !e.alive && this.removeEntity(e))
   }
 }

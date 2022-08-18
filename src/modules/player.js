@@ -11,11 +11,11 @@ export default class Player extends Entity {
   }
 
   get canAttack() {
-    return this.actionPoints > 0
+    return this.actionPoints > 0 && !this.moving
   }
 
   get over() {
-    return this.movementPoints === 0 && !this.canAttack
+    return this.movementPoints === 0 && !this.moving && !this.canAttack
   }
 
   spendAction() {
