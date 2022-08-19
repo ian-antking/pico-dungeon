@@ -29,7 +29,7 @@ export default class GameScene extends Phaser.Scene {
         scene: this,
         x: 4, 
         y: 4, 
-        health: 10,
+        health: 5,
         speed: 1,
         tile: 24,
         name: 'Slime',
