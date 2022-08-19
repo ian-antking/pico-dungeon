@@ -3,6 +3,7 @@ import { Grid, AStarFinder } from 'pathfinding'
 export default class Dungeon {
   constructor(scene) {
     this.scene = scene
+    this.messages = []
 
     const tileSize = 8
 
@@ -32,6 +33,11 @@ export default class Dungeon {
     const tileset = this.map.addTilesetImage('tiles', 'tiles', tileSize, tileSize, 0, 1)
 
     this.map.createLayer(0, tileset, 0, 0)
+  }
+
+  log(message) {
+    this.messages.unshift(message)
+    this.messages = this.messages.slice(0, 8)
   }
 
   initialiseEntity(entity) {
@@ -98,11 +104,11 @@ export default class Dungeon {
         defender.takeDamage(damage)
         attacker.spendAction()
 
-        console.log(`${attacker.name} attacked ${defender.name} and dealt ${damage} damage`)
+        this.log(`${attacker.name} attacked ${defender.name} and dealt ${damage} damage`)
 
         if ( !defender.alive ) {
           defender.sprite.destroy()
-          console.log(`${defender.name} is defeated`)
+          this.log(`${defender.name} is defeated`)
         }
       },
       x,
