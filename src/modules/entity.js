@@ -3,6 +3,7 @@ export default class Entity {
     this.name = name
     this.scene = scene
     this.health = health
+    this.maxHealth = health
     this.movementPoints = speed
     this.speed = speed
     this.moving = false

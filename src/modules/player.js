@@ -1,3 +1,4 @@
+import Phaser from 'phaser'
 import Entity from './entity'
 
 export default class Player extends Entity {
@@ -46,6 +47,12 @@ export default class Player extends Entity {
       }
 
       return moved
+    }
+
+    if (this.health <= (this.maxHealth / 2)) {
+      this.sprite.tint = Phaser.Display.Color.GetColor(255, 0, 0)
+    } else {
+      this.sprite.clearTint()
     }
   }
 }
