@@ -27,6 +27,10 @@ export default class Entity {
     return !this.over && !this.moving
   }
 
+  createUI() {
+    return 10
+  }
+
   attack() {
     return 1
   }

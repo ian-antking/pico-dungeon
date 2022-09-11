@@ -16,13 +16,20 @@ export default class UI extends Phaser.Scene {
     })
   }
 
-  create() {
-    const { width, height } = this.cameras.main
-
-    this.gameScene = this.scene.get('Game')
-
+  createUI() {
+    const { width } = this.cameras.main
     const entities = [...this.gameScene.turnManager.entities]
 
-    entities.forEach((entity, index) => this.log(width - 200, 20 * index, entity.name))
+    entities.forEach((entity, index) => entity.createUI({
+      scene: this,
+      x: width - 64,
+      y: 10 * index}
+    ))
+  }
+
+  create() {
+    this.gameScene = this.scene.get('Game')
+
+    this.createUI()
   }
 }

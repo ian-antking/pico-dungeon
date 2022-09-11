@@ -15,6 +15,14 @@ export default class Slime extends Entity {
     return this.movementPoints == 0
   }
 
+  createUI({ scene, x, y }) {
+    scene.add.sprite(x, y, 'tiles', this.tile).setOrigin(0)
+    scene.add.text(x + 10, y, this.name, {
+      font: '8px Arial',
+      fill: '#ffffff'
+    })
+  }
+
   update() {
     if (this.idle) {
       const { x, y } = this.location

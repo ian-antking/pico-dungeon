@@ -11,6 +11,9 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create() {
+    this.events.once('preupdate', () => {
+      this.scene.launch('Ui')
+    })
     const { width, height } = this.cameras.main
 
     this.dungeon = new DungeonManager(this)
@@ -45,11 +48,11 @@ export default class GameScene extends Phaser.Scene {
     this.turnManager.addEntity(slime)
 
     let camera = this.cameras.main
-    camera.setViewport(0, 0, width - 200, height)
+    camera.setViewport(0, 0, width - 64, height)
     camera.setBounds(0, 0, width, height)
     camera.startFollow(this.player.sprite)
 
-    this.scene.launch('Ui')
+    this.events.emit('CreateUI')
   }
 
   update() {

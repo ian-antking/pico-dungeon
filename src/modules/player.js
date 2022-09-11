@@ -19,6 +19,14 @@ export default class Player extends Entity {
     return this.movementPoints === 0 && !this.moving && !this.canAttack
   }
 
+  createUI({ scene, x, y }) {
+    scene.add.sprite(x, y, 'tiles', this.tile).setOrigin(0)
+    scene.add.text(x + 10, y, this.name, {
+      font: '8px Arial',
+      fill: '#ffffff'
+    })
+  }
+
   spendAction() {
     this.actionPoints - 1 > 0 ? this.actionPoints -= 1 : this.actionPoints = 0
   }
